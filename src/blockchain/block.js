@@ -5,6 +5,10 @@ class Block{
         this.hash = hash;
         this.data = data;
     }
+    static get genesis(){
+        const timestamp = (new Date(2019,0,1)).getTime();
+        return new this(timestamp, undefined, 'g3n3515-H45h', 'g3n3515-d4t4');
+    }
 
     toString(){
         const {

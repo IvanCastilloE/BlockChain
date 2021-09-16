@@ -5,5 +5,11 @@ const {name, version, description, author} = PKG;
 
 console.log(`${name} ${version} ${description} ${author}`); //alt + 96 = ``
 
-const block = new Block(Date.now(),'pr3v10u5-H45h', 'h45h', 'd4t4');
+const {genesis} = Block;
+console.log(genesis.toString());
+
+const block = new Block(Date.now(),genesis.hash, 'h45h', 'd4t4');
 console.log(block.toString());
+
+const block2 = new Block(Date.now(), block.hash, 'h45h-bl0ck2', 'd4t4-2')
+console.log(block2.toString());
