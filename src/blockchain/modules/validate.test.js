@@ -1,5 +1,4 @@
 import BlockChain from "../blockchain";
-import Block from "../blockchain";
 import validate from "./validate";
 
 describe('validete()', ()=>{
@@ -9,37 +8,37 @@ describe('validete()', ()=>{
         blockchain = new BlockChain();
     });
 
-    it('validar cadena valida', ()=> {
-        blockchain.addBlock('bl0ck-1');
-        blockchain.addBlock('bl0ck-2');
+    it('Crear cadena valida', () =>{
+        blockchain.addBlock('transact0');
+        blockchain.addBlock('transact1');
 
         expect(validate(blockchain.blocks)).toBe(true);
-
-    })
-
-    it('Invalidar la cadena con un genesis block corrupto', () =>{
-        blockchain.blocks[0].data = 'h4ck.data';
-
-        expect(()=>{
-            validate(blockchain.blocks);
-        }).toThrowError('Genesis block invalido');
     });
 
-    it('invalidar cadena con previousHash corrupto en un bloque', ()=>{
-        blockchain.addBlock('bl0ck-1');
-        blockchain.blocks[1].previousHash = 'h4ck-previoushash';
+    it('Validando cadena con un genesis block corrupto',()=>{
+        blockchain.blocks[0].data = 'H4ck-data';
 
         expect(()=>{
             validate(blockchain.blocks);
-        }).toThrowError('PreviousHash invalido');
-    })
+        }).toThrowError('Bloque genesis invalido');
+    });
 
-    it('invalidar cadena con Hash corrupto en un bloque', ()=>{
-        blockchain.addBlock('bl0ck-1');
-        blockchain.blocks[1].hash = 'h4ck-hash';
+    it('Invalidando una cadena con un previousHash corrupto en un block',()=>{
+        blockchain.addBlock('transact2');
+        blockchain.blocks[1].previousHash = 'H4ck-previousHash';
 
         expect(()=>{
             validate(blockchain.blocks);
-        }).toThrowError('Hash invalido');
-    })
-})
+        }).toThrowError('El previous hash es invalido');
+    });
+
+    it('Invalidando cadena con un block con hash corrupto', ()=>{
+        blockchain.addBlock('transact3');
+        blockchain.blocks[1].hash ='H4ck-hash';
+
+        expect(()=>{
+            validate(blockchain.blocks);
+        }).toThrowError('Hash bien invalido');
+    });
+    
+});
